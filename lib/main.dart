@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               // If the snapshot has user data, then they're already signed in. So Navigating to the MainScreenWidget
               if (snapshot.hasData) {
-                return const MainScreenWidget();
+                return MainScreenWidget();
               }
               // Otherwise, they're not signed in. Show the sign in page.
               return const LoginScreen();

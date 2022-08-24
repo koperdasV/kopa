@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: ((context) => const MainScreenWidget())));
+                    builder: ((context) => MainScreenWidget())));
           }
           if (state is AuthError) {
             ScaffoldMessenger.of(context)

@@ -49,7 +49,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
           if (state is PhoneAuthVerified) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (_) => const MainScreenWidget(),
+                builder: (_) => MainScreenWidget(),
               ),
             );
           }
