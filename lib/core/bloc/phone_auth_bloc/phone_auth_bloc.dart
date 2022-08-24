@@ -30,7 +30,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     on<OnPhoneAuthVerificationCompleteEvent>(_loginWithCredential);
   }
 
-  FutureOr<void> _onSentOtp(
+  Future<void> _onSentOtp(
       SendOtpToPhoneEvent event, Emitter<PhoneAuthState> emit) async {
     emit(PhoneAuthLoading());
     try {
@@ -57,7 +57,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     }
   }
 
-  FutureOr<void> _onVerifyOtp(
+  Future<void> _onVerifyOtp(
       VerifySentOtpEvent event, Emitter<PhoneAuthState> emit) async {
     try {
       emit(PhoneAuthLoading());
@@ -72,7 +72,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     }
   }
 
-  FutureOr<void> _loginWithCredential(
+  Future<void> _loginWithCredential(
       OnPhoneAuthVerificationCompleteEvent event,
       Emitter<PhoneAuthState> emit) async {
     // After receiving the credential from the event, we will login with the credential and then will emit the [PhoneAuthVerified] state after successful login

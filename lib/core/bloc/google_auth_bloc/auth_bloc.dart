@@ -13,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
   // When User Presses the Google Login Button, we will send the GoogleSignInRequest Event to the AuthBloc to handle it and emit the Authenticated State if the user is authenticated
 
-  void _googleSignIn(
+  Future<void> _googleSignIn(
       GoogleSignInRequested event, Emitter<AuthState> emit) async {
     emit(Loading());
     try {
@@ -26,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   // When User Presses the SignOut Button, we will send the SignOutRequested Event to the AuthBloc to handle it and emit the UnAuthenticated State
-  void _signOut(SignOutRequested event, Emitter<AuthState> emit) async {
+  Future<void> _signOut(SignOutRequested event, Emitter<AuthState> emit) async {
     emit(Loading());
     await authRepository.signOut();
     emit(UnAuthenticated());
