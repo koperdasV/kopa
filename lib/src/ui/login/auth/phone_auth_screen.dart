@@ -6,7 +6,7 @@ import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_state.dart';
 import 'package:kopa/src/ui/login/auth/verification_screen.dart';
 import 'package:kopa/src/ui/main/main_screen_widget.dart';
 
-import '../../../../constant.dart';
+import '../../../../resources/constant.dart';
 
 class PhoneAuth extends StatefulWidget {
   const PhoneAuth({
@@ -82,6 +82,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                       keyboardType: TextInputType.phone,
                       errorText: 'Номер введено не правильно',
                       hintText: '+38',
+                      
                     ),
                     if (state is! PhoneAuthCodeSentSuccess)
                       ButtonVerificationWidget(

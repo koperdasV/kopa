@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/constant.dart';
+import 'package:kopa/resources/constant.dart';
 import 'package:kopa/core/bloc/google_auth_bloc/auth_bloc.dart';
 import 'package:kopa/core/bloc/google_auth_bloc/auth_event.dart';
 import 'package:kopa/core/bloc/google_auth_bloc/auth_state.dart';
@@ -17,10 +17,8 @@ class LoginScreen extends StatelessWidget {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: ((context) => MainScreenWidget())));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: ((context) => MainScreenWidget())));
           }
           if (state is AuthError) {
             ScaffoldMessenger.of(context)

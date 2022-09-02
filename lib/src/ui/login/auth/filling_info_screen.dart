@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constant.dart';
+import '../../../../resources/constant.dart';
 import 'phone_auth_screen.dart';
 
 class FillingInfo extends StatelessWidget {
