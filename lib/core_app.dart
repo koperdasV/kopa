@@ -6,9 +6,12 @@ import 'package:kopa/resources/styles.dart';
 import 'core/bloc/google_auth_bloc/auth_bloc.dart';
 import 'core/data/google_sign_in.dart';
 
+import 'router/app_router.dart';
 import 'screens.dart';
 
 class CoreApp extends StatelessWidget {
+  static final mainNavigation = MainNavigation();
+
   const CoreApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -34,19 +37,13 @@ class CoreApp extends StatelessWidget {
             builder: (context, snapshot) {
               // If the snapshot has user data, then they're already signed in. So Navigating to the MainScreenWidget
               if (snapshot.hasData) {
-                return MainScreenWidget();
+                return const MainScreenWidget();
               }
               // Otherwise, they're not signed in. Show the sign in page.
               return const LoginScreen();
             },
           ),
-          routes: {
-            '/home': (context) => const HomeScreen(),
-            '/adc': (context) => const AdvertisementScreen(),
-            '/favorite': (context) => const FavoriteScreen(),
-            '/profile': (context) => const ProfileScreen(),
-            '/details': (context) => const DetailsScreen(),
-          },
+          routes: mainNavigation.routes,
           initialRoute: '/',
         ),
       ),

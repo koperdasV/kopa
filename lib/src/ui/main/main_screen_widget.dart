@@ -10,9 +10,14 @@ import 'package:kopa/src/ui/profile/profile_screen.dart';
 
 import '../../../widgets/bottom_navbar_widget.dart';
 
-class MainScreenWidget extends StatelessWidget {
-  MainScreenWidget({Key? key}) : super(key: key);
+class MainScreenWidget extends StatefulWidget {
+  const MainScreenWidget({Key? key}) : super(key: key);
 
+  @override
+  State<MainScreenWidget> createState() => _MainScreenWidgetState();
+}
+
+class _MainScreenWidgetState extends State<MainScreenWidget> {
   final ValueNotifier<int> pageIndex = ValueNotifier(0);
 
   void _onNavigationItemSelected(index) {
@@ -55,7 +60,3 @@ class MainScreenWidget extends StatelessWidget {
     );
   }
 }
-
-
-
-
