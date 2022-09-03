@@ -5,6 +5,7 @@ import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_event.dart';
 import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_state.dart';
 import 'package:kopa/src/ui/login/auth/verification_screen.dart';
 import 'package:kopa/src/ui/main/main_screen_widget.dart';
+import 'package:kopa/widgets/button_widget.dart';
 
 import '../../../../resources/constant.dart';
 
@@ -23,7 +24,7 @@ class PhoneAuth extends StatefulWidget {
 class _PhoneAuthState extends State<PhoneAuth> {
   late TextEditingController _phoneNumberController;
   late TextEditingController _codeController;
-  
+
   @override
   void initState() {
     _phoneNumberController = TextEditingController();
@@ -82,10 +83,9 @@ class _PhoneAuthState extends State<PhoneAuth> {
                       keyboardType: TextInputType.phone,
                       errorText: 'Номер введено не правильно',
                       hintText: '+38',
-                      
                     ),
                     if (state is! PhoneAuthCodeSentSuccess)
-                      ButtonVerificationWidget(
+                      ButtonWidget(
                         phoneNumberController: _phoneNumberController,
                         onPressed: () {
                           if (_phoneNumberFormKey.currentState!.validate()) {
@@ -101,7 +101,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                           //   ),
                           // );
                         },
-                        text: 'Верифікувати',
+                        child: const Text('Верифікувати'),
                       )
                     else
                       VerificationScreen(
@@ -225,48 +225,6 @@ class TextFieldWidget extends StatelessWidget {
             color: Colors.grey,
             fontSize: 14,
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ButtonVerificationWidget extends StatefulWidget {
-  final String text;
-  final VoidCallback onPressed;
-  final TextEditingController? phoneNumberController;
-
-  const ButtonVerificationWidget({
-    Key? key,
-    required this.text,
-    required this.onPressed,
-    this.phoneNumberController,
-  }) : super(key: key);
-
-  @override
-  State<ButtonVerificationWidget> createState() =>
-      _ButtonVerificationWidgetState();
-}
-
-class _ButtonVerificationWidgetState extends State<ButtonVerificationWidget> {
-  final GlobalKey<FormState> _phoneNumberFormKey = GlobalKey();
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      key: _phoneNumberFormKey,
-      padding: const EdgeInsets.only(bottom: 20, left: 50, right: 50),
-      child: SizedBox(
-        height: 45,
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: widget.onPressed,
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50))),
-            backgroundColor: MaterialStateProperty.all<Color>(
-                const Color.fromRGBO(12, 205, 230, 1)),
-          ),
-          child: Text(widget.text),
         ),
       ),
     );

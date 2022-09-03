@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class RegisterButtonWidget extends StatelessWidget {
   final String imagePath;
   final Color color;
-  final VoidCallback onTap;
+  final VoidCallback onPressed;
   const RegisterButtonWidget({
     Key? key,
     required this.imagePath,
     required this.color,
-    required this.onTap,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class RegisterButtonWidget extends StatelessWidget {
         shape: const CircleBorder(),
         fixedSize: const Size.fromHeight(65),
       ),
-      onPressed: onTap,
+      onPressed: onPressed,
       child: Image.asset(imagePath),
     );
   }

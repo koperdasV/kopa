@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kopa/widgets/button_widget.dart';
 
 import '../../../../resources/constant.dart';
 import 'phone_auth_screen.dart';
@@ -33,14 +34,14 @@ class FillingInfo extends StatelessWidget {
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 250),
-                  child: ButtonVerificationWidget(
+                  child: ButtonWidget(
                     onPressed: () {
                       //   Navigator.pushReplacement(
                       // context,
                       // MaterialPageRoute(
                       //     builder: ((context) => const VerificationScreen())));
                     },
-                    text: 'Готово',
+                    child: const Text('Готово'),
                   ),
                 ),
               ),

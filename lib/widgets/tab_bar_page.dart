@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kopa/resources/constant.dart';
 import 'package:kopa/src/ui/ads/active_screen.dart';
 import 'package:kopa/src/ui/ads/archiv_screen.dart';
 
@@ -36,7 +35,10 @@ class _TabBarPageState extends State<TabBarPage>
       child: Column(
         children: [
           const SizedBox(height: 70),
-          TabBarWidget(size: size, tabController: tabController),
+          TabBarWidget(
+            size: size,
+            tabController: tabController,
+          ),
           Expanded(
             child: TabBarView(
               controller: tabController,
@@ -51,5 +53,3 @@ class _TabBarPageState extends State<TabBarPage>
     );
   }
 }
-
-

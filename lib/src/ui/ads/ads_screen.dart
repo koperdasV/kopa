@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kopa/resources/constant.dart';
 import 'package:kopa/widgets/tab_bar_page.dart';
 
 class AdvertisementScreen extends StatelessWidget {
@@ -7,9 +6,6 @@ class AdvertisementScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColor.kPrimaryColor,
-      child: const TabBarPage(),
-    );
+    return const TabBarPage();
   }
 }

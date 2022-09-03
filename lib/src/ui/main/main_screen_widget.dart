@@ -50,7 +50,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                   const FavoriteScreen(),
                   BlocBuilder<AuthBloc, AuthState>(
                     builder: (context, state) {
-                      return const ProfileScreen();
+                      return ProfileScreen();
                     },
                   ),
                 ],

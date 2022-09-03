@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_bloc.dart';
 import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_event.dart';
+import 'package:kopa/widgets/button_widget.dart';
 
 import '../../../../resources/constant.dart';
 import 'phone_auth_screen.dart';
@@ -36,7 +37,7 @@ class VerificationScreen extends StatelessWidget {
                 obscureText: true,
                 hintText: 'Код підтвердження',
               ),
-              ButtonVerificationWidget(
+              ButtonWidget(
                 onPressed: () {
                   if (_otpFormKey.currentState!.validate()) {
                     _verifyOtp(context: context);
@@ -46,7 +47,7 @@ class VerificationScreen extends StatelessWidget {
                   //     MaterialPageRoute(
                   //         builder: ((context) => const FillingInfo())));
                 },
-                text: 'Далі',
+                child: const Text('Далі'),
               )
             ],
           ),

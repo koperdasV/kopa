@@ -29,14 +29,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: AppColor.navBarColor, boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 1.0,
-          blurRadius: 7.0,
-          offset: const Offset(0, 0.25),
-        )
-      ]),
+      decoration: BoxDecoration(
+        color: AppColor.navBarColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1.0,
+            blurRadius: 7.0,
+            offset: const Offset(0, 0.25),
+          )
+        ],
+      ),
       child: SafeArea(
         top: false,
         bottom: true,
