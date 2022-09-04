@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kopa/src/ui/login/auth/components/text_field_widget.dart';
 import 'package:kopa/widgets/button_widget.dart';
 
 import '../../../../resources/constant.dart';
-import 'phone_auth_screen.dart';
+import 'components/elipse_widget.dart';
 
 class FillingInfo extends StatelessWidget {
   const FillingInfo({Key? key}) : super(key: key);

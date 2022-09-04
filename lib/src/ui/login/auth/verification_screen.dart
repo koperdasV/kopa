@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_bloc.dart';
 import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_event.dart';
+import 'package:kopa/src/ui/login/auth/components/text_field_widget.dart';
 import 'package:kopa/widgets/button_widget.dart';
 
 import '../../../../resources/constant.dart';
-import 'phone_auth_screen.dart';
+import 'components/elipse_widget.dart';
+import 'components/logo_widget.dart';
 
 class VerificationScreen extends StatelessWidget {
   VerificationScreen({

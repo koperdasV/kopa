@@ -3,11 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_bloc.dart';
 import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_event.dart';
 import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_state.dart';
+import 'package:kopa/src/ui/login/auth/components/text_field_widget.dart';
 import 'package:kopa/src/ui/login/auth/verification_screen.dart';
 import 'package:kopa/src/ui/main/main_screen_widget.dart';
 import 'package:kopa/widgets/button_widget.dart';
 
 import '../../../../resources/constant.dart';
+import 'components/elipse_widget.dart';
+import 'components/logo_widget.dart';
 
 class PhoneAuth extends StatefulWidget {
   const PhoneAuth({
@@ -50,7 +53,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
           if (state is PhoneAuthVerified) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (_) => MainScreenWidget(),
+                builder: (_) => const MainScreenWidget(),
               ),
             );
           }
@@ -130,103 +133,8 @@ class _PhoneAuthState extends State<PhoneAuth> {
   }
 }
 
-class LogoWidget extends StatelessWidget {
-  const LogoWidget({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      flex: 4,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 104),
-        child: Image.asset('images/logo.png'),
-      ),
-    );
-  }
-}
 
-class EllipseWidget extends StatelessWidget {
-  const EllipseWidget({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      flex: 1,
-      child: SizedBox(
-        child: Stack(
-          children: [
-            Image.asset('images/ellipse.png'),
-            const Positioned(
-              left: 76,
-              top: 36,
-              child: Text(
-                'Вхід',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
-class TextFieldWidget extends StatelessWidget {
-  final String? hintText;
-  final String? errorText;
-  final bool obscureText;
-  final TextInputType? keyboardType;
-  final TextEditingController? controller;
-  const TextFieldWidget({
-    Key? key,
-    this.hintText,
-    this.obscureText = false,
-    this.keyboardType = TextInputType.name,
-    this.errorText,
-    this.controller,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 50, left: 50, bottom: 34, top: 10),
-      child: TextField(
-        obscureText: obscureText,
-        keyboardType: keyboardType,
-        textInputAction: TextInputAction.next,
-        cursorColor: Colors.white,
-        style: const TextStyle(
-          fontSize: 14,
-          color: Colors.white,
-        ),
-        decoration: InputDecoration(
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 8, horizontal: 23),
-          // errorText: errorText,
-          // errorStyle: const TextStyle(fontSize: 9),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(50),
-          ),
-          hintText: hintText,
-          hintStyle: const TextStyle(
-            fontWeight: FontWeight.w300,
-            color: Colors.grey,
-            fontSize: 14,
-          ),
-        ),
-      ),
-    );
-  }
-}

@@ -14,3 +14,21 @@ ThemeData buildThemeData() {
     ),
   );
 }
+
+InputDecoration buildDecoration(String lableText) {
+  return InputDecoration(
+    labelStyle: const TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+    ),
+    labelText: lableText,
+    focusedBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.white),
+    ),
+    enabledBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Color.fromRGBO(171, 180, 189, 0.5),
+      ),
+    ),
+  );
+}
