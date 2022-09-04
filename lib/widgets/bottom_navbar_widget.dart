@@ -29,17 +29,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: AppColor.navBarColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1.0,
-            blurRadius: 7.0,
-            offset: const Offset(0, 0.25),
-          )
-        ],
-      ),
+      color: AppColor.navBarColor,
       child: SafeArea(
         top: false,
         bottom: true,
@@ -107,22 +97,34 @@ class _NavigationBarItem extends StatelessWidget {
       onTap: () {
         onTap(index);
       },
-      child: SizedBox(
-        height: 80,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(
-              image: AssetImage(image),
-              color: isSelected
-                  ? AppColor.selectedItemColor
-                  : AppColor.unSelectedItemColor,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-          ],
+      child: Container(
+        width: 50,
+        decoration: isSelected
+            ? BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    width: 2,
+                    color: AppColor.selectedItemColor,
+                  ),
+                ),
+              )
+            : const BoxDecoration(),
+        child: SizedBox(
+          height: 80,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                image: AssetImage(image),
+                color: isSelected
+                    ? AppColor.selectedItemColor
+                    : AppColor.unSelectedItemColor,
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+            ],
+          ),
         ),
       ),
     );
