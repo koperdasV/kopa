@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddButton extends StatelessWidget {
-  final Function onPressed;
+  final Function() onPressed;
   final Color? backgroundColor;
   final Widget child;
   final ButtonStyle? style;
@@ -28,7 +28,7 @@ class AddButton extends StatelessWidget {
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(22))),
           ),
-          onPressed: () {},
+          onPressed: onPressed,
           child: Transform.rotate(
             angle: -math / 4,
             child: child,

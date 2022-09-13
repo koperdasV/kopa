@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/core/bloc/google_auth_bloc/auth_bloc.dart';
-import 'package:kopa/core/bloc/google_auth_bloc/auth_event.dart';
-import 'package:kopa/core/bloc/google_auth_bloc/auth_state.dart';
+import 'package:kopa/core/bloc/auth_bloc/auth_bloc.dart';
+import 'package:kopa/core/bloc/auth_bloc/auth_event.dart';
+import 'package:kopa/core/bloc/auth_bloc/auth_state.dart';
+import 'package:kopa/src/ui/login/auth/phone_auth_screen.dart';
 import 'package:kopa/src/ui/main/main_screen_widget.dart';
+import 'package:kopa/widgets/register_button.dart';
 
-import '../../../widgets/register_button_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -71,11 +72,11 @@ class LoginScreen extends StatelessWidget {
                           RegisterButtonWidget(
                             imagePath: 'images/phone.png',
                             onPressed: () {
-                              // Navigator.pushReplacement(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: ((context) =>
-                              //             PhoneAuth())));
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) =>
+                                         const PhoneAuth())));
                             },
                             color: const Color(0xFF42FF00),
                           ),
@@ -86,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                           RegisterButtonWidget(
                             imagePath: 'images/google.png',
-                            onPressed: () async {
+                            onPressed: () {
                               _authenticateWithGoogle(context);
                             },
                             color: const Color(0xFFFF0000),

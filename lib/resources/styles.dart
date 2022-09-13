@@ -3,9 +3,9 @@ import 'package:kopa/resources/constant.dart';
 
 ThemeData buildThemeData() {
   return ThemeData(
-    scaffoldBackgroundColor: AppColor.kPrimaryColor,
+    scaffoldBackgroundColor: AppColor.backgroundColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: AppColor.kPrimaryColor,
+      backgroundColor: AppColor.backgroundColor,
       elevation: 0,
     ),
     textTheme: const TextTheme(

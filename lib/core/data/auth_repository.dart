@@ -3,7 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class GoogleAuthRepository {
+class AuthRepository {
   final _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -25,5 +25,20 @@ class GoogleAuthRepository {
   Future<void> signOut() async {
     await _googleSignIn.signOut();
     await _auth.signOut();
+  }
+
+  Future<void> verifyPhone({
+    required String phoneNumber,
+    required Function(PhoneAuthCredential) verificationCompleted,
+    required Function(FirebaseAuthException) verificationFailed,
+    required Function(String, int?) codeSent,
+    required Function(String) codeAutoRetrievalTimeout,
+  }) async {
+    await _auth.verifyPhoneNumber(
+      verificationCompleted: verificationCompleted,
+      verificationFailed: verificationFailed,
+      codeSent: codeSent,
+      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+    );
   }
 }

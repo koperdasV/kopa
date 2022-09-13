@@ -26,7 +26,21 @@ class UnAuthenticated extends AuthState {
 class AuthError extends AuthState {
   final String error;
 
-  AuthError(this.error);
+  AuthError({required this.error});
   @override
   List<Object?> get props => [error];
+}
+
+class PhoneAuthCodeSentSuccess extends AuthState {
+  final String verificationId;
+  PhoneAuthCodeSentSuccess({
+    required this.verificationId,
+  });
+  @override
+  List<Object> get props => [verificationId];
+}
+
+class PhoneAuthVerified extends AuthState {
+  @override
+  List<Object?> get props => [];
 }

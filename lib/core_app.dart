@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopa/resources/styles.dart';
 
-import 'core/bloc/google_auth_bloc/auth_bloc.dart';
-import 'core/data/google_sign_in.dart';
+import 'core/bloc/auth_bloc/auth_bloc.dart';
+import 'core/data/auth_repository.dart';
 
 import 'router/app_router.dart';
 import 'screens.dart';
@@ -16,13 +16,12 @@ class CoreApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => GoogleAuthRepository(),
+      create: (context) => AuthRepository(),
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => AuthBloc(
-              authRepository:
-                  RepositoryProvider.of<GoogleAuthRepository>(context),
+              authRepository: RepositoryProvider.of<AuthRepository>(context),
             ),
           ),
           // BlocProvider(

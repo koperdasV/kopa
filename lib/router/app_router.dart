@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kopa/screens.dart';
+import 'package:kopa/src/ui/create/create_screen.dart';
 
-import '../screens.dart';
 
 abstract class MainNavigationRouteName {
   static const home = '/home';
@@ -8,6 +9,7 @@ abstract class MainNavigationRouteName {
   static const profile = '/profile';
   static const favorite = '/favorite';
   static const details = '/details';
+  static const create = '/create';
 }
 
 class MainNavigation {
@@ -17,5 +19,6 @@ class MainNavigation {
     MainNavigationRouteName.profile: (context) => ProfileScreen(),
     MainNavigationRouteName.favorite: (context) => const FavoriteScreen(),
     MainNavigationRouteName.details: (context) => const DetailsScreen(),
+    MainNavigationRouteName.create:(context) => const CreateScreen(),
   };
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kopa/resources/constant.dart';
 import 'package:kopa/src/ui/login/auth/components/text_field_widget.dart';
 import 'package:kopa/widgets/button_widget.dart';
 
-import '../../../../resources/constant.dart';
 import 'components/elipse_widget.dart';
 
 class FillingInfo extends StatelessWidget {
@@ -13,7 +13,7 @@ class FillingInfo extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          color: AppColor.kPrimaryColor,
+          color: AppColor.backgroundColor,
           child: Column(
             children: [
               const Padding(

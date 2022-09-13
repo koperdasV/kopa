@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/core/bloc/google_auth_bloc/auth_bloc.dart';
-import 'package:kopa/core/bloc/google_auth_bloc/auth_state.dart';
+import 'package:kopa/core/bloc/auth_bloc/auth_bloc.dart';
+import 'package:kopa/core/bloc/auth_bloc/auth_state.dart';
 import 'package:kopa/src/ui/ads/ads_screen.dart';
 import 'package:kopa/src/ui/favorite/favorite_screen.dart';
 import 'package:kopa/src/ui/home/home_screen.dart';
 import 'package:kopa/src/ui/login/login_screen.dart';
 import 'package:kopa/src/ui/profile/profile_screen.dart';
+import 'package:kopa/widgets/bottom_navbar.dart';
 
-import '../../../widgets/bottom_navbar_widget.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);

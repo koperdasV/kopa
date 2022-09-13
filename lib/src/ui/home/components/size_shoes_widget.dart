@@ -15,11 +15,11 @@ class SizeShoesWidget extends StatelessWidget {
           Text(
             '40',
             style: TextStyle(
-              color: AppColor.selectedItemColor,
+              color: AppColor.kPrimaryColor,
               fontSize: 22,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 3,
           ),
           const Text(

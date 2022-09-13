@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../resources/constant.dart';
+import 'package:kopa/resources/constant.dart';
 
 class TabBarWidget extends StatelessWidget {
   const TabBarWidget({
@@ -30,7 +29,7 @@ class TabBarWidget extends StatelessWidget {
             indicatorWeight: 2,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              color: AppColor.selectedItemColor,
+              color: AppColor.kPrimaryColor,
             ),
             labelStyle: const TextStyle(
               fontWeight: FontWeight.w400,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_bloc.dart';
-import 'package:kopa/core/bloc/phone_auth_bloc/phone_auth_event.dart';
+import 'package:kopa/core/bloc/auth_bloc/auth_bloc.dart';
+import 'package:kopa/core/bloc/auth_bloc/auth_event.dart';
+import 'package:kopa/resources/constant.dart';
 import 'package:kopa/src/ui/login/auth/components/text_field_widget.dart';
 import 'package:kopa/widgets/button_widget.dart';
 
-import '../../../../resources/constant.dart';
 import 'components/elipse_widget.dart';
 import 'components/logo_widget.dart';
 
@@ -26,7 +26,7 @@ class VerificationScreen extends StatelessWidget {
       key: _otpFormKey,
       body: Center(
         child: Container(
-          color: AppColor.kPrimaryColor,
+          color: AppColor.backgroundColor,
           child: Column(
             children: [
               const LogoWidget(),
@@ -59,7 +59,7 @@ class VerificationScreen extends StatelessWidget {
   }
 
   void _verifyOtp({required BuildContext context}) {
-    context.read<PhoneAuthBloc>().add(VerifySentOtpEvent(
+    context.read<AuthBloc>().add(VerifySentOtpEvent(
         otpCode: codeController.text, verificationId: verificationId));
     codeController.clear();
   }

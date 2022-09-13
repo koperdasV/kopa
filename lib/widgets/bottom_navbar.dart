@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kopa/resources/constant.dart';
+import 'package:kopa/src/ui/create/create_screen.dart';
 
-import '../resources/constant.dart';
 import 'add_button.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -49,8 +50,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
               onTap: onSelectedTab,
             ),
             AddButton(
-              onPressed: () {},
-              backgroundColor: AppColor.selectedItemColor,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => const CreateScreen()),
+                  ),
+                );
+              },
+              backgroundColor: AppColor.kPrimaryColor,
               child: const Icon(
                 Icons.add,
                 color: Colors.white,
@@ -104,7 +112,7 @@ class _NavigationBarItem extends StatelessWidget {
                 border: Border(
                   top: BorderSide(
                     width: 2,
-                    color: AppColor.selectedItemColor,
+                    color: AppColor.kPrimaryColor,
                   ),
                 ),
               )
@@ -117,7 +125,7 @@ class _NavigationBarItem extends StatelessWidget {
               Image(
                 image: AssetImage(image),
                 color: isSelected
-                    ? AppColor.selectedItemColor
+                    ? AppColor.kPrimaryColor
                     : AppColor.unSelectedItemColor,
               ),
               const SizedBox(

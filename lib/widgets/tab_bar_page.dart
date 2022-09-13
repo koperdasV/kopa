@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kopa/src/ui/ads/active_screen.dart';
-import 'package:kopa/src/ui/ads/archiv_screen.dart';
+import 'package:kopa/src/ui/ads/archive_screen.dart';
 
-import 'tab_bar_widget.dart';
+import 'tab_bar.dart';
 
 class TabBarPage extends StatefulWidget {
   const TabBarPage({Key? key}) : super(key: key);

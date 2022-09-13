@@ -1,13 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
-abstract class PhoneAuthEvent extends Equatable {
-  const PhoneAuthEvent();
-
+@immutable
+abstract class AuthEvent extends Equatable {
+  const AuthEvent();
   @override
   List<Object> get props => [];
 }
-class SendOtpToPhoneEvent extends PhoneAuthEvent {
+
+// When the user signing in with google this event is called and the [AuthRepository] is called to sign in the user
+class GoogleSignInRequested extends AuthEvent{}
+
+// When the user signing out this event is called and the [AuthRepository] is called to sign out the user
+class SignOutRequested extends AuthEvent{}
+
+class SendOtpToPhoneEvent extends AuthEvent {
   final String phoneNumber;
 
   const SendOtpToPhoneEvent({required this.phoneNumber});
@@ -16,7 +24,7 @@ class SendOtpToPhoneEvent extends PhoneAuthEvent {
   List<Object> get props => [phoneNumber];
 }
 
-class VerifySentOtpEvent extends PhoneAuthEvent {
+class VerifySentOtpEvent extends AuthEvent {
   final String otpCode;
   final String verificationId;
 
@@ -29,7 +37,7 @@ class VerifySentOtpEvent extends PhoneAuthEvent {
   List<Object> get props => [otpCode, verificationId];
 }
 
-class OnPhoneOtpSent extends PhoneAuthEvent {
+class OnPhoneOtpSent extends AuthEvent {
   final String verificationId;
   final int? token;
 
@@ -43,7 +51,7 @@ class OnPhoneOtpSent extends PhoneAuthEvent {
 }
 /*This event will be triggered when an error occurs while sending the OTP to the user's phone number. 
   This can be due to network issues or firebase's error.*/ 
-class OnPhoneAuthErrorEvent extends PhoneAuthEvent {
+class OnPhoneAuthErrorEvent extends AuthEvent {
    final String error;
    const OnPhoneAuthErrorEvent({required this.error});
 
@@ -52,7 +60,7 @@ class OnPhoneAuthErrorEvent extends PhoneAuthEvent {
 }
 
 //This event will be triggered when the verification of the OTP is successful.
-class OnPhoneAuthVerificationCompleteEvent extends PhoneAuthEvent {
+class OnPhoneAuthVerificationCompleteEvent extends AuthEvent {
    final AuthCredential credential;
    const OnPhoneAuthVerificationCompleteEvent({
      required this.credential,
