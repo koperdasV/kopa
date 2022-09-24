@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_bloc.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_event.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_bloc.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_event.dart';
 import 'package:kopa/resources/constant.dart';
 import 'package:kopa/src/ui/login/auth/components/text_field_widget.dart';
 import 'package:kopa/widgets/button_widget.dart';

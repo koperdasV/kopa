@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_bloc.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_event.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_state.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_bloc.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_event.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_state.dart';
 import 'package:kopa/src/ui/login/auth/phone_auth_screen.dart';
 import 'package:kopa/src/ui/main/main_screen_widget.dart';
 import 'package:kopa/widgets/register_button.dart';
 
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +19,7 @@ class LoginScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: ((context) => const MainScreenWidget())));
+            BlocProvider.of<AuthBloc>(context).add(SendUserDataToDB());
           }
           if (state is AuthError) {
             ScaffoldMessenger.of(context)
@@ -76,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: ((context) =>
-                                         const PhoneAuth())));
+                                          const PhoneAuth())));
                             },
                             color: const Color(0xFF42FF00),
                           ),

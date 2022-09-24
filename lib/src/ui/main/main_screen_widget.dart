@@ -1,14 +1,15 @@
+// ignore_for_file: avoid_print
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_bloc.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_state.dart';
-import 'package:kopa/src/ui/ads/ads_screen.dart';
-import 'package:kopa/src/ui/favorite/favorite_screen.dart';
-import 'package:kopa/src/ui/home/home_screen.dart';
-import 'package:kopa/src/ui/login/login_screen.dart';
-import 'package:kopa/src/ui/profile/profile_screen.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_bloc.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_state.dart';
+import 'package:kopa/core/blocs/product/product_bloc.dart';
+import 'package:kopa/core/repositories/product/product_repositories.dart';
+import 'package:kopa/screens.dart';
 import 'package:kopa/widgets/bottom_navbar.dart';
-
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -40,22 +41,28 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
           }
         },
         child: ValueListenableBuilder(
-            valueListenable: pageIndex,
-            builder: (context, value, child) {
-              return IndexedStack(
-                index: pageIndex.value,
-                children: [
-                  const HomeScreen(),
-                  const AdvertisementScreen(),
-                  const FavoriteScreen(),
-                  BlocBuilder<AuthBloc, AuthState>(
-                    builder: (context, state) {
-                      return ProfileScreen();
-                    },
-                  ),
-                ],
-              );
-            }),
+          valueListenable: pageIndex,
+          builder: (context, value, child) {
+            return IndexedStack(
+              index: pageIndex.value,
+              children: [
+                BlocProvider(
+                  create: (context) => ProductBloc(
+                    productRepository: ProductRepository(),
+                  )..add(LoadProducts()),
+                  child: const HomeScreen(),
+                ),
+                const AdvertisementScreen(),
+                const FavoriteScreen(),
+                BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    return ProfileScreen();
+                  },
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

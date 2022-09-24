@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kopa/resources/constant.dart';
+import 'package:kopa/src/models/product_model.dart';
 
 class SizeShoesWidget extends StatelessWidget {
   const SizeShoesWidget({
-    Key? key,
+    Key? key, required this.product,
   }) : super(key: key);
+
+    final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class SizeShoesWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            '40',
+            '${product.size}',
             style: TextStyle(
               color: AppColor.kPrimaryColor,
               fontSize: 22,

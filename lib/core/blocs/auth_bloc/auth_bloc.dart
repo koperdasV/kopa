@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_event.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_state.dart';
-import 'package:kopa/core/data/auth_repository.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_event.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_state.dart';
+import 'package:kopa/core/repositories/auth/auth_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
@@ -13,6 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }) : super(UnAuthenticated()) {
     on<GoogleSignInRequested>(_googleSignIn);
     on<SignOutRequested>(_signOut);
+    on<SendUserDataToDB>(_sendUserDataToDB);
     // When user clicks on send otp button then this event will be fired
     on<SendOtpToPhoneEvent>(_onSentOtp);
     // After receiving the otp, When user clicks on verify otp button then this event will be fired
@@ -103,6 +106,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
     } on FirebaseAuthException catch (e) {
       emit(AuthError(error: e.code));
+    } catch (e) {
+      emit(AuthError(error: e.toString()));
+    }
+  }
+
+  Future<void> _sendUserDataToDB(
+      SendUserDataToDB event, Emitter<AuthState> emit) async {
+    emit(Loading());
+    try {
+      await authRepository.sendUserDataToDB();
+      emit(Authenticated());
     } catch (e) {
       emit(AuthError(error: e.toString()));
     }

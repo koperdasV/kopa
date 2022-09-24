@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_bloc.dart';
-import 'package:kopa/core/bloc/auth_bloc/auth_event.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_bloc.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_event.dart';
 import 'package:kopa/widgets/button_widget.dart';
 
 import 'components/text_field_widget.dart';

@@ -15,6 +15,8 @@ class GoogleSignInRequested extends AuthEvent{}
 // When the user signing out this event is called and the [AuthRepository] is called to sign out the user
 class SignOutRequested extends AuthEvent{}
 
+class SendUserDataToDB extends AuthEvent {}
+
 class SendOtpToPhoneEvent extends AuthEvent {
   final String phoneNumber;
 

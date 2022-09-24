@@ -23,6 +23,7 @@ final models = [
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Future<void> buildFilterBottomSheet(BuildContext context) async {
+  Future<void> buildFilterBottomSheet(BuildContext context) {
     return showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -58,20 +59,22 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: AppColor.navBarColor,
       builder: (context) {
         return SizedBox(
-          child: Column(children: [
-            SizedBox(
-              height: 200,
-              child: CupertinoPicker(
-                itemExtent: models.length.toDouble(),
-                children: models
-                    .map((model) => Center(
-                          child: Text(model),
-                        ))
-                    .toList(),
-                onSelectedItemChanged: (index) {},
+          child: Column(
+            children: [
+              SizedBox(
+                height: 200,
+                child: CupertinoPicker(
+                  itemExtent: models.length.toDouble(),
+                  children: models
+                      .map((model) => Center(
+                            child: Text(model),
+                          ))
+                      .toList(),
+                  onSelectedItemChanged: (index) {},
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
         );
       },
     );

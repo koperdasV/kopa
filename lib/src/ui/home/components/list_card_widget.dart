@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kopa/core/blocs/product/product_bloc.dart';
 import 'package:kopa/resources/constant.dart';
+import 'package:kopa/src/models/product_model.dart';
+import 'package:kopa/src/ui/details/details_screen.dart';
+import 'package:kopa/src/ui/home/components/card.dart';
 
 import 'card_favorite.dart';
-import 'card_name.dart';
+import 'card_model.dart';
 import 'card_photo.dart';
 import 'card_price.dart';
 import 'length_shoes_widget.dart';
@@ -20,72 +25,27 @@ class ListCardWidget extends StatefulWidget {
 class _ListCardWidgetState extends State<ListCardWidget> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: 7,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: AppPadding.cardPadding,
-            child: Stack(
-              children: [
-                Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.5, 0.5),
-                        blurRadius: 5.0,
-                      ),
-                    ],
-                    color: AppColor.cardColor,
-                  ),
-                ),
-                const CardPhoto(),
-                const FavoriteWidget(),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0, left: 170),
-                      child: Row(
-                        children: [
-                          Column(
-                            children: const [
-                              CardName(),
-                              SizedBox(height: 9),
-                              Text(
-                                'Розмір стопи:',
-                                style: TextStyle(fontSize: 10),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(width: 45),
-                          const CardPrice(),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const [
-                          SizeShoesWidget(),
-                          LengthShoesWidget(),
-                          WidthShoesWidget(),
-                        ],
-                      ),
-                    ),
-                    const MaterialShoesWidget(),
-                  ],
-                ),
-              ],
+    return BlocBuilder<ProductBloc, ProductState>(
+      builder: (context, state) {
+        if (state is ProductLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is ProductLoaded) {
+          return Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.products.length,
+              itemBuilder: (context, index) {
+                return ProductCard(product: state.products[index],);
+              },
             ),
           );
-        },
-      ),
+        } else {
+          return const Text('Something went wrong.');
+        }
+      },
     );
   }
 }
