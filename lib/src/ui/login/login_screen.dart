@@ -19,8 +19,10 @@ class LoginScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: ((context) => const MainScreenWidget())));
-            BlocProvider.of<AuthBloc>(context).add(SendUserDataToDB());
+                              //BlocProvider.of<AuthBloc>(context).add(SendUserDataToDB());
+
           }
+
           if (state is AuthError) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.error)));
@@ -87,7 +89,8 @@ class LoginScreen extends StatelessWidget {
                           RegisterButtonWidget(
                             imagePath: 'images/google.png',
                             onPressed: () {
-                              _authenticateWithGoogle(context);
+                              BlocProvider.of<AuthBloc>(context)
+                                  .add(GoogleSignInRequested());
                             },
                             color: const Color(0xFFFF0000),
                           ),
@@ -102,9 +105,5 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _authenticateWithGoogle(context) {
-    BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());
   }
 }

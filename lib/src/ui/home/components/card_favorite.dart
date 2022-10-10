@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kopa/core/blocs/favorite/favorite_bloc.dart';
 import 'package:kopa/core/blocs/product/product_bloc.dart';
 import 'package:kopa/src/models/product_model.dart';
 
@@ -15,48 +16,38 @@ class CardFavorite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final user = FirebaseAuth.instance.currentUser;
+
     return StreamBuilder<QuerySnapshot>(
-      stream:FirebaseFirestore.instance
+        stream: FirebaseFirestore.instance
             .collection("users-fav-products")
-            .doc(FirebaseAuth.instance.currentUser!.email)
-            .collection("fav-products")
-            .where("imageUrl", isEqualTo: product.imageUrl)
+            .where('idProduct', arrayContains: product.idProduct)
             .snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.data == null) {
+        builder: (context, snapshot) {
+          if (snapshot.data == null) {
             return const Text("data null");
           }
-        return IconButton(
-          onPressed: () {
-            snapshot.data!.docs.isEmpty
-                ? BlocProvider.of<ProductBloc>(context).add(
-                    AddToFavorite(
-                      product.imageUrl,
-                      product.size,
-                      product.width,
-                      product.heigth,
-                      product.model,
-                      product.material,
-                      product.description,
-                      product.price,
-                    ),
+          return IconButton(
+            onPressed: () {
+              snapshot.data!.docs.isEmpty
+                  ? BlocProvider.of<FavoriteBloc>(context).add(
+                      AddToFavorite(idProduct: product.idProduct),
+                    )
+                  : BlocProvider.of<FavoriteBloc>(context)
+                      .add(const DeleteFromFavorite());
+            },
+            icon: snapshot.data!.docs.isEmpty
+                ? const Icon(
+                    Icons.favorite_outline,
+                    size: 40,
+                    color: Colors.white,
                   )
-                : BlocProvider.of<ProductBloc>(context).add(
-                    DeleteFromFavorite());
-          },
-          icon: snapshot.data!.docs.isEmpty
-              ? const Icon(
-                  Icons.favorite_outline,
-                  size: 40,
-                  color: Colors.white,
-                )
-              : const Icon(
-                  Icons.favorite,
-                  size: 40,
-                  color: Colors.red,
-                ),
-        );
-      }
-    );
+                : const Icon(
+                    Icons.favorite,
+                    size: 40,
+                    color: Colors.red,
+                  ),
+          );
+        });
   }
 }

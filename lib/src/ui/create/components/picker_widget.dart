@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Picker extends StatefulWidget {
-  final List<String> dataList;
+  final List<Object> dataList;
   const Picker({
     Key? key,
     required this.dataList,
@@ -57,14 +57,14 @@ class _PickerState extends State<Picker> {
             widget.dataList.length,
             (index) => Center(
               child: Text(
-                widget.dataList[index],
+                widget.dataList[index].toString(),
               ),
             ),
           ),
         ),
       ),
       child: Text(
-        widget.dataList[_selectedSize],
+        widget.dataList[_selectedSize].toString(),
         style: const TextStyle(
           fontSize: 20.0,
         ),

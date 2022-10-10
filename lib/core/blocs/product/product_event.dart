@@ -9,17 +9,21 @@ abstract class ProductEvent extends Equatable {
 
 class LoadProducts extends ProductEvent {}
 
+class LoadUserProducts extends ProductEvent {}
+
 class AddProducts extends ProductEvent {
+  final String idProduct;
   final String imageUrl;
-  final int size;
-  final int width;
-  final int heigth;
+  final String size;
+  final String width;
+  final String heigth;
   final String model;
   final String material;
   final String description;
-  final int price;
+  final String price;
 
   const AddProducts(
+    this.idProduct,
     this.imageUrl,
     this.size,
     this.width,
@@ -31,6 +35,7 @@ class AddProducts extends ProductEvent {
   );
   @override
   List<Object> get props => [
+        idProduct,
         imageUrl,
         size,
         width,
@@ -40,48 +45,6 @@ class AddProducts extends ProductEvent {
         description,
         price,
       ];
-}
-
-class AddToFavorite extends ProductEvent {
-  final String imageUrl;
-  final int size;
-  final int width;
-  final int heigth;
-  final String model;
-  final String material;
-  final String description;
-  final int price;
-
-  const AddToFavorite(
-    this.imageUrl,
-    this.size,
-    this.width,
-    this.heigth,
-    this.model,
-    this.material,
-    this.description,
-    this.price,
-  );
-  @override
-  List<Object> get props => [
-        imageUrl,
-        size,
-        width,
-        heigth,
-        model,
-        material,
-        description,
-        price,
-      ];
-}
-
-class DeleteFromFavorite extends ProductEvent {
-  //final DocumentSnapshot documentSnapshot;
-
-  const DeleteFromFavorite();
-
-  @override
-  List<Object> get props => [];
 }
 
 class UpdateProducts extends ProductEvent {

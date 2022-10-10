@@ -18,6 +18,14 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedTab = 0;
+  final FocusNode _imageFocusNode = FocusNode();
+  final FocusNode _widthFocusNode = FocusNode();
+  final FocusNode _heigthFocusNode = FocusNode();
+  final FocusNode _sizeFocusNode = FocusNode();
+  final FocusNode _materialFocusNode = FocusNode();
+  final FocusNode _modelFocusNode = FocusNode();
+  final FocusNode _descriptionFocusNode = FocusNode();
+  final FocusNode _priceFocusNode = FocusNode();
 
   void onSelectedTab(int index) {
     if (_selectedTab == index) return;
@@ -54,7 +62,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => CreateScreen()),
+                    builder: ((context) => CreateScreen(
+                          imageFocusNode: _imageFocusNode,
+                          widthFocusNode: _widthFocusNode,
+                          heigthFocusNode: _heigthFocusNode,
+                          sizeFocusNode: _sizeFocusNode,
+                          materialFocusNode: _materialFocusNode,
+                          modelFocusNode: _modelFocusNode,
+                          descriptionFocusNode: _descriptionFocusNode,
+                          priceFocusNode: _priceFocusNode,
+                        )),
                   ),
                 );
               },

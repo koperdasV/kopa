@@ -7,14 +7,22 @@ import 'package:kopa/src/models/product_model.dart';
 
 class ProductRepository extends BaseProductRepository {
   final user = FirebaseAuth.instance.currentUser;
-  final productCollection =
-      FirebaseFirestore.instance.collection('users-products');
+
+  final productCollection = FirebaseFirestore.instance.collection('products');
+  final userProductCollection =
+      FirebaseFirestore.instance.collection('user-products');
   final CollectionReference favoriteCollection =
       FirebaseFirestore.instance.collection("users-fav-products");
 
   @override
   Stream<List<Product>> getAllProducts() {
-    return productCollection
+    return productCollection.snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList());
+  }
+
+  @override
+  Stream<List<Product>> getUserProducts() {
+    return userProductCollection
         .doc(user?.email)
         .collection('products')
         .snapshots()
@@ -22,10 +30,16 @@ class ProductRepository extends BaseProductRepository {
             snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList());
   }
 
+  
+
   @override
   Future<void> addProduct(Product product) async {
     try {
-      await productCollection.doc(user?.email).collection('products').doc().set(
+      await userProductCollection
+          .doc(user?.email)
+          .collection('products')
+          .doc()
+          .set(
         {
           'imageUrl': product.imageUrl,
           'size': product.size,
@@ -49,45 +63,7 @@ class ProductRepository extends BaseProductRepository {
   }
 
   @override
-  Future<void> deleteProduct(Product product) {
-    return productCollection.doc(product.material).delete();
-  }
-
-  @override
   Future<void> updateProduct(Product product) {
     throw UnimplementedError();
-  }
-
-  @override
-  Future addToFavorite(Product product) async {
-    return favoriteCollection
-        .doc(user?.email)
-        .collection("fav-products")
-        .doc()
-        .set(
-      {
-        'imageUrl': product.imageUrl,
-        'size': product.size,
-        'width': product.width,
-        'height': product.heigth,
-        'model': product.model,
-        'material': product.material,
-        'description': product.description,
-        'price': product.price,
-      },
-    ).then(
-      (value) => print("add to favorite"),
-    );
-  }
-
-  @override
-  Future deleteFromFavorites(DocumentSnapshot documentSnapshot) async {
-    return favoriteCollection
-        .doc(user?.email)
-        .collection("fav-products")
-        .doc(documentSnapshot.id).delete()
-    .then(
-      (value) => print("remove from favorite"),
-    );
   }
 }

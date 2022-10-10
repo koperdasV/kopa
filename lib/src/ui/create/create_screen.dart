@@ -1,8 +1,9 @@
-// ignore_for_file: avoid_print, must_be_immutable  
+// ignore_for_file: avoid_print, must_be_immutable
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopa/core/blocs/product/product_bloc.dart';
+import 'package:kopa/src/ui/create/components/text_form_field.dart';
 
 import 'components/divider_widget.dart';
 import 'components/lable_text.dart';
@@ -10,14 +11,37 @@ import 'components/photo_grid_view.dart';
 import 'components/picker_widget.dart';
 import 'components/save_button.dart';
 import 'components/size_block.dart';
-import 'components/text_form_field.dart';
 
-class CreateScreen extends StatelessWidget {
-  CreateScreen({
+class CreateScreen extends StatefulWidget {
+  const CreateScreen({
     Key? key,
+    required this.imageFocusNode,
+    required this.widthFocusNode,
+    required this.heigthFocusNode,
+    required this.sizeFocusNode,
+    required this.materialFocusNode,
+    required this.modelFocusNode,
+    required this.descriptionFocusNode,
+    required this.priceFocusNode,
   }) : super(key: key);
 
-  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final FocusNode imageFocusNode;
+  final FocusNode widthFocusNode;
+  final FocusNode heigthFocusNode;
+  final FocusNode sizeFocusNode;
+  final FocusNode materialFocusNode;
+  final FocusNode modelFocusNode;
+  final FocusNode descriptionFocusNode;
+  final FocusNode priceFocusNode;
+
+  @override
+  State<CreateScreen> createState() => _CreateScreenState();
+}
+
+class _CreateScreenState extends State<CreateScreen> {
+  final _formKey = GlobalKey<FormState>();
+  bool _isProcessing = false;
+
   final user = FirebaseAuth.instance.currentUser;
 
   List<String> model = [
@@ -36,6 +60,35 @@ class CreateScreen extends StatelessWidget {
     'Converse',
     'Balenciaga',
   ];
+  List<String> size = [
+    '36',
+    '37',
+    '38',
+    '39',
+    '40',
+    '41',
+    '42',
+    '43',
+    '44',
+  ];
+  List<int> width = [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+  ];
+  List<double> heigth = [
+    28.5,
+    29.5,
+    30.5,
+    31,
+    31.5,
+    32,
+  ];
+
   List<String> material = [
     'Штучна шкіра',
     'Натуральна шкіра',
@@ -47,18 +100,21 @@ class CreateScreen extends StatelessWidget {
     'Штучний нубук',
   ];
 
-  final TextEditingController imageController = TextEditingController();
-  final TextEditingValue sizeController = const TextEditingValue();
-  final TextEditingController widthController = TextEditingController();
-  final TextEditingController heigthController = TextEditingController();
-  final TextEditingController modelController = TextEditingController();
-  final TextEditingController materialController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
+  final TextEditingController _imageController = TextEditingController();
 
-  // Future<void> _create() async {
-  //   descriptionController.text = state.description;
-  // }
+  final TextEditingValue _sizeController = const TextEditingValue();
+
+  final TextEditingController _widthController = TextEditingController();
+
+  final TextEditingController _heigthController = TextEditingController();
+
+  final TextEditingController _modelController = TextEditingController();
+
+  final TextEditingController _materialController = TextEditingController();
+
+  final TextEditingController _descriptionController = TextEditingController();
+
+  final TextEditingController _priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +128,17 @@ class CreateScreen extends StatelessWidget {
               SaveButton(
                 onPressed: () {
                   _formKey.currentState?.save();
-                  //context.read<ProductBloc>().add(AddProducts());
-                  //_create();
+                  // context.read<ProductBloc>().add(AddProducts(
+                  //       'imageUrl',
+                  //       _sizeController.text,
+                  //       _widthController.text,
+                  //       _heigthController.text,
+                  //       _modelController.text,
+                  //       _materialController.text,
+                  //       _descriptionController.text,
+                  //       _priceController.text,
+                  //     ));
+
                   Navigator.pop(context);
                 },
               ),
@@ -89,7 +154,12 @@ class CreateScreen extends StatelessWidget {
                   padding: EdgeInsets.only(top: 10),
                   child: LableText(lableText: 'Розмір'),
                 ),
-                SizeBlockWidget(size: size),
+                SizeBlockWidget(
+                  size: size,
+                  sizeController: _sizeController,
+                  heigthController: _heigthController,
+                  widthController: _widthController,
+                ),
                 const Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: LableText(lableText: 'Модель'),
@@ -97,7 +167,7 @@ class CreateScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: Picker(
-                    dataList: model,
+                    dataList: [_modelController.value],
                   ),
                 ),
                 const DividerWidget(),
@@ -117,15 +187,17 @@ class CreateScreen extends StatelessWidget {
                   child: LableText(lableText: 'Опис'),
                 ),
                 TextFormFieldWidget(
-                  controller: descriptionController,
+                  focusNode: widget.descriptionFocusNode,
+                  controller: _descriptionController,
                 ),
                 const DividerWidget(),
                 const Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: LableText(lableText: 'Ціна'),
                 ),
-                const TextFormFieldWidget(
-                  //onChanged: ,
+                TextFormFieldWidget(
+                  focusNode: widget.priceFocusNode,
+                  controller: _priceController,
                   keyboardType: TextInputType.number,
                 ),
                 const Padding(

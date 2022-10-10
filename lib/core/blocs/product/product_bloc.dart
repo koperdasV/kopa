@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:kopa/core/repositories/product/product_repositories.dart';
 import 'package:kopa/src/models/product_model.dart';
@@ -18,39 +17,53 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       : _productRepository = productRepository,
         super(ProductLoading()) {
     on<LoadProducts>(_onLoadProducts);
+    on<LoadUserProducts>(_onLoadUserProducts);
     on<AddProducts>(_onAddProducts);
-    on<UpdateProducts>(_onUpdateProducts);
-    on<AddToFavorite>(_addToFavorite);
-    on<DeleteFromFavorite>(_deleteFromFavorite);
+  on<UpdateProducts>(_onUpdateProducts);
   }
 
-  void _onLoadProducts(
-    LoadProducts event,
-    Emitter<ProductState> emit,
-  ) {
+  void _onLoadProducts(LoadProducts event, Emitter<ProductState> emit) {
     _productSubscription?.cancel();
-    _productSubscription =
-        _productRepository.getAllProducts().listen((products) {
-      add(
-        UpdateProducts(products),
-      );
-    });
+    _productSubscription = _productRepository.getAllProducts().listen(
+      (products) {
+        add(
+          UpdateProducts(products),
+        );
+      },
+    );
+  }
+
+  void _onLoadUserProducts(LoadUserProducts event, Emitter<ProductState> emit) {
+    _productSubscription?.cancel();
+    _productSubscription = _productRepository.getUserProducts().listen(
+      (products) {
+        add(
+          UpdateProducts(products),
+        );
+      },
+    );
+  }
+
+  @override
+  Future<void> close() {
+    _productSubscription?.cancel();
+    return super.close();
   }
 
   void _onAddProducts(AddProducts event, Emitter<ProductState> emit) async {
-    //_productSubscription?.cancel();
     if (state is ProductLoaded) {
       try {
         await _productRepository.addProduct(
           Product(
-            imageUrl: event.imageUrl,
-            size: event.size,
-            width: event.width,
-            heigth: event.heigth,
-            model: event.model,
-            material: event.material,
+            idProduct: event.idProduct,
+            imageUrl: event.idProduct,
+            size: int.parse(event.idProduct),
+            width: int.parse(event.idProduct),
+            heigth: int.parse(event.idProduct),
+            model: event.idProduct,
+            material: event.idProduct,
             description: event.description,
-            price: event.price,
+            price: int.parse(event.price),
           ),
         );
         emit(const ProductAdded());
@@ -68,41 +81,5 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     Emitter<ProductState> emit,
   ) {
     emit(ProductLoaded(products: event.products));
-  }
-
-  void _addToFavorite(AddToFavorite event, Emitter<ProductState> emit) async {
-    if (state is ProductLoaded) {
-      try {
-        await _productRepository.addToFavorite(
-          Product(
-            imageUrl: event.imageUrl,
-            size: event.size,
-            width: event.width,
-            heigth: event.heigth,
-            model: event.model,
-            material: event.material,
-            description: event.description,
-            price: event.price,
-          ),
-        );
-        emit(const ProductAdded());
-        //emit(ProductLoading());
-      } catch (e) {
-        emit(ProductError(e.toString()));
-      }
-    }
-  }
-
-  void _deleteFromFavorite(
-      DeleteFromFavorite event, Emitter<ProductState> emit) async {
-    if (state is ProductLoaded) {
-      DocumentSnapshot? documentSnapshot;
-      try {
-        await _productRepository.deleteFromFavorites(documentSnapshot!);
-        emit(ProductLoading());
-      } catch (e) {
-        emit(ProductError(e.toString()));
-      }
-    }
   }
 }

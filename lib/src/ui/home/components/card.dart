@@ -1,8 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopa/core/blocs/product/product_bloc.dart';
 import 'package:kopa/resources/constant.dart';
 import 'package:kopa/screens.dart';
 import 'package:kopa/src/models/product_model.dart';

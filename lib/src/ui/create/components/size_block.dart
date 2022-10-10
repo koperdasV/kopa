@@ -6,9 +6,18 @@ class SizeBlockWidget extends StatelessWidget {
   const SizeBlockWidget({
     Key? key,
     required this.size,
-  }) : super(key: key);
+    required TextEditingValue sizeController,
+    required TextEditingController heigthController,
+    required TextEditingController widthController,
+  })  : _sizeController = sizeController,
+        _heigthController = heigthController,
+        _widthController = widthController,
+        super(key: key);
 
   final Size size;
+  final TextEditingValue _sizeController;
+  final TextEditingController _heigthController;
+  final TextEditingController _widthController;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +31,10 @@ class SizeBlockWidget extends StatelessWidget {
             child: Image.asset('images/icon_shoes.png'),
           ),
           Column(
-            children: const [
+            children: [
               RowSizeWidget(
                 lableText: 'Розмір',
-                widget: Picker(
+                widget: const Picker(
                   dataList: [
                     'EU',
                     'UA',
@@ -34,15 +43,7 @@ class SizeBlockWidget extends StatelessWidget {
                 ),
                 child: Picker(
                   dataList: [
-                    '36',
-                    '37',
-                    '38',
-                    '39',
-                    '40',
-                    '41',
-                    '42',
-                    '43',
-                    '44',
+                    [_sizeController]
                   ],
                 ),
               ),
@@ -50,29 +51,14 @@ class SizeBlockWidget extends StatelessWidget {
               RowSizeWidget(
                 lableText: 'Довжина/см',
                 child: Picker(
-                  dataList: [
-                    '28.5',
-                    '29.5',
-                    '30.5',
-                    '31',
-                    '31.5',
-                    '32',
-                  ],
+                  dataList: [_heigthController],
                 ),
               ),
               //DividerWidget(),
               RowSizeWidget(
                 lableText: 'Ширина/см',
                 child: Picker(
-                  dataList: [
-                    '10',
-                    '11',
-                    '12',
-                    '13',
-                    '14',
-                    '15',
-                    '16',
-                  ],
+                  dataList: [_widthController],
                 ),
               ),
               //DividerWidget(),

@@ -4,18 +4,22 @@ class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget({
     Key? key,
     this.keyboardType,
-    this.controller, this.onSaved,
+    this.controller,
+    this.onSaved,
+    required this.focusNode,
   }) : super(key: key);
 
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final void Function(String?)? onSaved;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 30),
       child: TextFormField(
+        focusNode: focusNode,
         onSaved: (newValue) {},
         controller: controller,
         keyboardType: keyboardType,

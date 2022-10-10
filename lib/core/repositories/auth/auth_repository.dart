@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
   final _auth = FirebaseAuth.instance;
-    final user = FirebaseAuth.instance.currentUser;
+  final user = FirebaseAuth.instance.currentUser;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
