@@ -22,22 +22,22 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 30, top: 70),
               child: Row(
                 children: [
-                  // CircleAvatar(
-                  //   radius: 50,
-                  //   backgroundImage: NetworkImage(
-                  //     "${user?.photoURL}",
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 12.0),
-                  //   child: Text(
-                  //     "${user?.displayName}",
-                  //     style: const TextStyle(
-                  //       fontWeight: FontWeight.w700,
-                  //       fontSize: 22,
-                  //     ),
-                  //   ),
-                  // ),
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(
+                      "${user?.photoURL}",
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0),
+                    child: Text(
+                      "${user?.displayName}",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
