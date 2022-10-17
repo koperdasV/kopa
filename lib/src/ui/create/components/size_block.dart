@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kopa/resources/constant.dart';
+import 'package:kopa/src/models/product_model.dart';
 import 'package:kopa/src/ui/create/components/picker_widget.dart';
 
 class SizeBlockWidget extends StatelessWidget {
   const SizeBlockWidget({
     Key? key,
     required this.size,
-    required TextEditingValue sizeController,
+    required TextEditingController sizeController,
     required TextEditingController heigthController,
     required TextEditingController widthController,
   })  : _sizeController = sizeController,
@@ -15,12 +16,23 @@ class SizeBlockWidget extends StatelessWidget {
         super(key: key);
 
   final Size size;
-  final TextEditingValue _sizeController;
+  final TextEditingController _sizeController;
   final TextEditingController _heigthController;
   final TextEditingController _widthController;
 
   @override
   Widget build(BuildContext context) {
+    List<String> sizeShose = [
+      '36',
+      '37',
+      '38',
+      '39',
+      '40',
+      '41',
+      '42',
+      '43',
+      '44',
+    ];
     return Container(
       height: size.height / 3.5,
       color: AppColor.cardColor,
@@ -34,31 +46,33 @@ class SizeBlockWidget extends StatelessWidget {
             children: [
               RowSizeWidget(
                 lableText: 'Розмір',
-                widget: const Picker(
-                  dataList: [
+                widget: Picker(
+                  pickerController: _sizeController,
+                  dataList: const[
                     'EU',
                     'UA',
                     'GB',
                   ],
                 ),
                 child: Picker(
-                  dataList: [
-                    [_sizeController]
-                  ],
+                  pickerController: _sizeController,
+                  dataList: sizeShose,
                 ),
               ),
               //DividerWidget(),
               RowSizeWidget(
                 lableText: 'Довжина/см',
                 child: Picker(
-                  dataList: [_heigthController],
+                  pickerController: _widthController,
+                  dataList: sizeShose,
                 ),
               ),
               //DividerWidget(),
               RowSizeWidget(
                 lableText: 'Ширина/см',
                 child: Picker(
-                  dataList: [_widthController],
+                  pickerController: _heigthController,
+                  dataList: sizeShose,
                 ),
               ),
               //DividerWidget(),

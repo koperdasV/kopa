@@ -3,10 +3,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class AuthRepository {
   final _auth = FirebaseAuth.instance;
   final user = FirebaseAuth.instance.currentUser;
+  final auth.FirebaseAuth _firebaseAuth;
+
+  AuthRepository({auth.FirebaseAuth? firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? auth.FirebaseAuth.instance;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -57,5 +62,11 @@ class AuthRepository {
       codeSent: codeSent,
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     );
+  }
+
+
+  @override
+  Future<void> signOutPhone() async {
+    await _firebaseAuth.signOut();
   }
 }

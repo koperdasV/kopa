@@ -1,9 +1,14 @@
 // ignore_for_file: avoid_print, must_be_immutable
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kopa/core/blocs/product/product_bloc.dart';
+import 'package:kopa/src/models/product_model.dart';
 import 'package:kopa/src/ui/create/components/text_form_field.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import 'components/divider_widget.dart';
 import 'components/lable_text.dart';
@@ -60,17 +65,6 @@ class _CreateScreenState extends State<CreateScreen> {
     'Converse',
     'Balenciaga',
   ];
-  List<String> size = [
-    '36',
-    '37',
-    '38',
-    '39',
-    '40',
-    '41',
-    '42',
-    '43',
-    '44',
-  ];
   List<int> width = [
     10,
     11,
@@ -102,7 +96,7 @@ class _CreateScreenState extends State<CreateScreen> {
 
   final TextEditingController _imageController = TextEditingController();
 
-  final TextEditingValue _sizeController = const TextEditingValue();
+  final TextEditingController _sizeController = TextEditingController();
 
   final TextEditingController _widthController = TextEditingController();
 
@@ -115,6 +109,8 @@ class _CreateScreenState extends State<CreateScreen> {
   final TextEditingController _descriptionController = TextEditingController();
 
   final TextEditingController _priceController = TextEditingController();
+  final firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -128,16 +124,18 @@ class _CreateScreenState extends State<CreateScreen> {
               SaveButton(
                 onPressed: () {
                   _formKey.currentState?.save();
-                  // context.read<ProductBloc>().add(AddProducts(
-                  //       'imageUrl',
-                  //       _sizeController.text,
-                  //       _widthController.text,
-                  //       _heigthController.text,
-                  //       _modelController.text,
-                  //       _materialController.text,
-                  //       _descriptionController.text,
-                  //       _priceController.text,
-                  //     ));
+
+                  context.read<ProductBloc>().add(AddProducts(
+                        '1',
+                        'imageUrl',
+                        _sizeController.text,
+                        _widthController.text,
+                        _heigthController.text,
+                        _modelController.text,
+                        _materialController.text,
+                        _descriptionController.text,
+                        _priceController.text,
+                      ));
 
                   Navigator.pop(context);
                 },
@@ -167,7 +165,8 @@ class _CreateScreenState extends State<CreateScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: Picker(
-                    dataList: [_modelController.value],
+                    pickerController: _modelController,
+                    dataList: model,
                   ),
                 ),
                 const DividerWidget(),
@@ -178,6 +177,7 @@ class _CreateScreenState extends State<CreateScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: Picker(
+                    pickerController: _materialController,
                     dataList: material,
                   ),
                 ),

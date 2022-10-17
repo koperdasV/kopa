@@ -5,17 +5,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopa/core/blocs/auth_bloc/auth_event.dart';
 import 'package:kopa/core/blocs/auth_bloc/auth_state.dart';
 import 'package:kopa/core/repositories/auth/auth_repository.dart';
+import 'package:kopa/core/repositories/phone_auth/phone_auth_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
+  final PhoneAuthRepository phoneAuthRepository;
   final auth = FirebaseAuth.instance;
 
   AuthBloc({
     required this.authRepository,
+    required this.phoneAuthRepository,
   }) : super(UnAuthenticated()) {
     on<GoogleSignInRequested>(_googleSignIn);
     on<SignOutRequested>(_signOut);
     on<SendUserDataToDB>(_sendUserDataToDB);
+
+    ////-----PHONE METHODS-------////
+    
     // When user clicks on send otp button then this event will be fired
     on<SendOtpToPhoneEvent>(_onSentOtp);
     // After receiving the otp, When user clicks on verify otp button then this event will be fired
@@ -57,7 +63,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       SendOtpToPhoneEvent event, Emitter<AuthState> emit) async {
     emit(Loading());
     try {
-      await authRepository.verifyPhone(
+      await phoneAuthRepository.verifyPhone(
           phoneNumber: event.phoneNumber,
           verificationCompleted: (PhoneAuthCredential credential) async {
             // On [verificationComplete], we will get the credential from the firebase  and will send it to the [OnPhoneAuthVerificationCompleteEvent] event to be handled by the bloc and then will emit the [PhoneAuthVerified] state after successful login

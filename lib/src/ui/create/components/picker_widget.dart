@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class Picker extends StatefulWidget {
   final List<Object> dataList;
+  final TextEditingController pickerController;
   const Picker({
     Key? key,
-    required this.dataList,
+    required this.dataList, required this.pickerController,
   }) : super(key: key);
 
   @override

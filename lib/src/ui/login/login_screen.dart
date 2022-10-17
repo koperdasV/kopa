@@ -7,8 +7,13 @@ import 'package:kopa/src/ui/login/auth/phone_auth_screen.dart';
 import 'package:kopa/src/ui/main/main_screen_widget.dart';
 import 'package:kopa/widgets/register_button.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,16 +21,19 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is Authenticated) {
             Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: ((context) => const MainScreenWidget())));
-                              //BlocProvider.of<AuthBloc>(context).add(SendUserDataToDB());
-
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MainScreenWidget(),
+              ),
+            );
           }
 
           if (state is AuthError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.error),
+              ),
+            );
           }
         },
         child: BlocBuilder<AuthBloc, AuthState>(
@@ -74,10 +82,11 @@ class LoginScreen extends StatelessWidget {
                             imagePath: 'images/phone.png',
                             onPressed: () {
                               Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) =>
-                                          const PhoneAuth())));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const PhoneAuth(),
+                                ),
+                              );
                             },
                             color: const Color(0xFF42FF00),
                           ),

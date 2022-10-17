@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopa/core/blocs/product/product_bloc.dart';
+import 'package:kopa/core/repositories/phone_auth/phone_auth_repository.dart';
 import 'package:kopa/core/repositories/product/product_repositories.dart';
 import 'package:kopa/resources/styles.dart';
 import 'package:kopa/router/app_router.dart';
@@ -20,6 +21,7 @@ class CoreApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(
+            phoneAuthRepository: PhoneAuthRepository(),
             authRepository: AuthRepository(),
           ),
         ),

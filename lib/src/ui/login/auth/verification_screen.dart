@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopa/core/blocs/auth_bloc/auth_bloc.dart';
-import 'package:kopa/core/blocs/auth_bloc/auth_event.dart';
+import 'package:kopa/core/blocs/auth_bloc/auth_state.dart';
 import 'package:kopa/resources/constant.dart';
+import 'package:kopa/src/ui/login/auth/components/otp_widget.dart';
 import 'package:kopa/src/ui/login/auth/components/text_field_widget.dart';
-import 'package:kopa/widgets/button_widget.dart';
+import 'package:kopa/src/ui/login/auth/filling_info_screen.dart';
+import 'package:kopa/src/ui/main/main_screen_widget.dart';
 
 import 'components/elipse_widget.dart';
 import 'components/logo_widget.dart';
@@ -24,43 +26,47 @@ class VerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _otpFormKey,
-      body: Center(
-        child: Container(
-          color: AppColor.backgroundColor,
-          child: Column(
-            children: [
-              const LogoWidget(),
-              const EllipseWidget(),
-              const SizedBox(height: 30),
-              TextFieldWidget(
-                controller: codeController,
-                keyboardType: TextInputType.number,
-                errorText: 'Код підтвердження введено не правильно',
-                obscureText: true,
-                hintText: 'Код підтвердження',
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is PhoneAuthCodeSentSuccess) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (_) => const FillingInfo(),
               ),
-              ButtonWidget(
-                onPressed: () {
-                  if (_otpFormKey.currentState!.validate()) {
-                    _verifyOtp(context: context);
-                  }
-                  // Navigator.pushReplacement(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: ((context) => const FillingInfo())));
-                },
-                child: const Text('Далі'),
-              )
-            ],
+            );
+          }
+          if (state is PhoneAuthVerified) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (_) => const MainScreenWidget(),
+              ),
+            );
+          }
+          if (state is AuthError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.error),
+              ),
+            );
+          }
+        },
+        child: Center(
+          child: Container(
+            color: AppColor.backgroundColor,
+            child: Column(
+              children: [
+                const LogoWidget(),
+                const EllipseWidget(),
+                const SizedBox(height: 30),
+                OtpWidget(
+                  codeController: codeController,
+                  verificationId: verificationId,
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-
-  void _verifyOtp({required BuildContext context}) {
-    context.read<AuthBloc>().add(VerifySentOtpEvent(
-        otpCode: codeController.text, verificationId: verificationId));
-    codeController.clear();
   }
 }

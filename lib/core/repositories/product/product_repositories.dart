@@ -11,8 +11,6 @@ class ProductRepository extends BaseProductRepository {
   final productCollection = FirebaseFirestore.instance.collection('products');
   final userProductCollection =
       FirebaseFirestore.instance.collection('user-products');
-  final CollectionReference favoriteCollection =
-      FirebaseFirestore.instance.collection("users-fav-products");
 
   @override
   Stream<List<Product>> getAllProducts() {
@@ -29,8 +27,6 @@ class ProductRepository extends BaseProductRepository {
         .map((snapshot) =>
             snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList());
   }
-
-  
 
   @override
   Future<void> addProduct(Product product) async {

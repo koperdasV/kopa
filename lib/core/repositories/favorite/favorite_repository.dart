@@ -6,10 +6,8 @@ import 'package:kopa/core/repositories/favorite/base_favorite_repository.dart';
 import 'package:kopa/src/models/product_model.dart';
 
 class FavoriteRepository extends BaseFavoriteRepository{
-  
-    final user = FirebaseAuth.instance.currentUser;
-
-    final CollectionReference favoriteCollection =
+  final user = FirebaseAuth.instance.currentUser;
+  final CollectionReference favoriteCollection =
       FirebaseFirestore.instance.collection("users-fav-products");
 
   @override
@@ -22,9 +20,10 @@ class FavoriteRepository extends BaseFavoriteRepository{
             snapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList());
   }
 
+
+
 @override
   Future<void> addToFavorite(String productId) async {
-  //final userId = FirebaseAuth.instance.currentUser;
     final docData = {
           "idProduct": FieldValue.arrayUnion([productId]),
         };
